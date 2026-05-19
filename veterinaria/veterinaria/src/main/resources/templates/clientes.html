@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes - Guanavet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #2c7a7b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        }
+
+        h2 {
+            color: #2c7a7b;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #2c7a7b;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            background: #225e5f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #e0f2f1;
+            color: #225e5f;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f1fafa;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Gestión de clientes</p>
+</header>
+
+<div class="container">
+    <h2>Lista de clientes</h2>
+
+    <a class="btn" href="/clientes/nuevo">Agregar cliente</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Dirección</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="cliente : ${clientes}">
+            <td th:text="${cliente.idCliente}"></td>
+            <td th:text="${cliente.nombre}"></td>
+            <td th:text="${cliente.telefono}"></td>
+            <td th:text="${cliente.correo}"></td>
+            <td th:text="${cliente.direccion}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>tml>

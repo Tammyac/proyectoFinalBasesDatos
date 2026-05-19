@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente - Guanavet</title>
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f8f7;
+            margin:0;
+            padding:0;
+        }
+
+        header{
+            background:#2c7a7b;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .container{
+
+            width:500px;
+
+            margin:40px auto;
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:15px;
+
+            box-shadow:0 4px 12px rgba(0,0,0,.12);
+
+        }
+
+        h2{
+            color:#2c7a7b;
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        label{
+
+            font-weight:bold;
+            display:block;
+            margin-top:12px;
+
+        }
+
+        input{
+
+            width:95%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            margin-top:5px;
+
+        }
+
+        .botones{
+
+            display:flex;
+            gap:10px;
+            margin-top:25px;
+
+        }
+
+        button{
+
+            flex:1;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+
+        }
+
+        .guardar{
+
+            background:#2c7a7b;
+            color:white;
+
+        }
+
+        .guardar:hover{
+
+            background:#225e5f;
+
+        }
+
+        .volver{
+
+            background:#777;
+            color:white;
+            text-decoration:none;
+            text-align:center;
+            padding:12px;
+            border-radius:8px;
+            flex:1;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+</header>
+
+<div class="container">
+
+    <h2>Formulario de Cliente</h2>
+
+
+    <form
+            th:action="@{/clientes/guardar}"
+            th:object="${cliente}"
+            method="post">
+
+        <input
+                type="hidden"
+                th:field="*{idCliente}">
+
+
+        <label>Nombre</label>
+
+        <input
+                type="text"
+                th:field="*{nombre}"
+                required>
+
+
+        <label>Teléfono</label>
+
+        <input
+                type="text"
+                th:field="*{telefono}"
+                required>
+
+
+        <label>Correo</label>
+
+        <input
+                type="email"
+                th:field="*{correo}">
+
+
+        <label>Dirección</label>
+
+        <input
+                type="text"
+                th:field="*{direccion}">
+
+
+        <div class="botones">
+
+            <button
+                    class="guardar"
+                    type="submit">
+
+                Guardar
+
+            </button>
+
+            <a
+                    class="volver"
+                    href="/clientes">
+
+                Cancelar
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

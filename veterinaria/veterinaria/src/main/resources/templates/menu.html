@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú Principal - Guanavet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f7;
+            margin: 0;
+        }
+
+        header {
+            background: #2c7a7b;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .usuario {
+            text-align: center;
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .menu {
+            width: 85%;
+            margin: 35px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #2c7a7b;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .salir {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .salir a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Menú principal</p>
+</header>
+
+<div class="usuario">
+    <p>
+        Usuario:
+        <strong th:text="${session.usuario.nombre}"></strong>
+        |
+        Rol:
+        <strong th:text="${session.rol}"></strong>
+    </p>
+</div>
+
+<div class="menu">
+
+    <!-- ADMIN: puede ver todo -->
+    <div class="card" th:if="${session.rol == 'ADMIN'}">
+        <a href="/usuarios">Usuarios</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
+        <a href="/clientes">Clientes</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA' or session.rol == 'VETERINARIO'}">
+        <a href="/mascotas">Mascotas</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN'}">
+        <a href="/veterinarios">Veterinarios</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
+        <a href="/citas">Citas</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'VETERINARIO'}">
+        <a href="/consultas">Consultas médicas</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'VETERINARIO'}">
+        <a href="/vacunas">Vacunas</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
+        <a href="/productos">Inventario</a>
+    </div>
+
+    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
+        <a href="/facturas">Facturas</a>
+    </div>
+
+</div>
+
+<div class="salir">
+    <a href="/logout">Cerrar sesión</a>
+</div>
+
+</body>
+</html>

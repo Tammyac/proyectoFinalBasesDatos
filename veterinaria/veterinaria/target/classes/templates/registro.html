@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Guanavet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8f5f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registro-box {
+            background: white;
+            padding: 35px;
+            width: 380px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c7a7b;
+        }
+
+        input {
+            width: 92%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 98%;
+            padding: 12px;
+            background: #2c7a7b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #225e5f;
+        }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            color: #2c7a7b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="registro-box">
+    <h2>Crear usuario</h2>
+    <p>Registro de nuevo usuario</p>
+
+    <form th:action="@{/registro}" th:object="${usuario}" method="post">
+
+        <input type="text" th:field="*{nombre}" placeholder="Nombre completo" required>
+
+        <input type="email" th:field="*{correo}" placeholder="Correo electrónico" required>
+
+        <input type="password" th:field="*{password}" placeholder="Contraseña" required>
+
+        <button type="submit">Crear cuenta</button>
+    </form>
+
+    <a href="/login">Volver al login</a>
+</div>
+
+</body>
+</html>
