@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Vacunas aplicadas
+    </title>
+
+    <style>
+
+        body{
+        font-family:Arial;
+        background:#f4f8f7;
+        margin:0;
+        }
+
+        header{
+        background:#2c7a7b;
+        color:white;
+        padding:20px;
+        text-align:center;
+        }
+
+        .container{
+        width:90%;
+        margin:30px auto;
+        background:white;
+        padding:25px;
+        border-radius:12px;
+        }
+
+        .btn{
+        background:#2c7a7b;
+        color:white;
+        padding:10px;
+        text-decoration:none;
+        border-radius:8px;
+        }
+
+        table{
+        width:100%;
+        margin-top:20px;
+        border-collapse:collapse;
+        }
+
+        th,td{
+        padding:12px;
+        border-bottom:1px solid #ddd;
+        text-align:center;
+        }
+
+        th{
+        background:#e0f2f1;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>
+        Sistema Veterinario Guanavet
+    </h1>
+
+    <p>
+        Vacunas aplicadas
+    </p>
+
+</header>
+
+<div class="container">
+
+    <a class="btn"
+       href="/vacunasmascota/nuevo">
+
+        Aplicar vacuna
+
+    </a>
+
+    <a class="btn"
+       href="/menu">
+
+        Volver
+
+    </a>
+
+    <table>
+
+        <tr>
+
+            <th>Mascota</th>
+            <th>Vacuna</th>
+            <th>Fecha</th>
+            <th>Acción</th>
+
+        </tr>
+
+        <tr th:each="v:${vacunasMascota}">
+
+            <td th:text="${v.mascota.nombre}"></td>
+
+            <td th:text="${v.vacuna.nombre}"></td>
+
+            <td th:text="${v.fecha}"></td>
+
+            <td>
+
+                <a
+                        style="color:red"
+                        th:href="@{/vacunasmascota/eliminar/{id}(id=${v.idVacunaMascota})}">
+
+                    Eliminar
+
+                </a>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+</body>
+</html>

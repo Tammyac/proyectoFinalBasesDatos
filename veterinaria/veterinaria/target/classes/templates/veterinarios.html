@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Veterinarios - Guanavet</title>
+
+    <style>
+        body{font-family:Arial,sans-serif;background:#f4f8f7;margin:0;}
+        header{background:#2c7a7b;color:white;padding:20px;text-align:center;}
+        .container{width:90%;margin:30px auto;background:white;padding:25px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.12);}
+        .btn{background:#2c7a7b;color:white;padding:10px 15px;text-decoration:none;border-radius:8px;margin-right:10px;}
+        table{width:100%;border-collapse:collapse;margin-top:20px;}
+        th,td{padding:12px;text-align:center;border-bottom:1px solid #ddd;}
+        th{background:#e0f2f1;color:#225e5f;}
+        .editar{background:#3182ce;color:white;padding:8px 12px;border-radius:6px;text-decoration:none;}
+        .eliminar{background:#e53e3e;color:white;padding:8px 12px;border-radius:6px;text-decoration:none;}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Gestión de veterinarios</p>
+</header>
+
+<div class="container">
+
+    <a class="btn" href="/veterinarios/nuevo">Agregar veterinario</a>
+    <a class="btn" href="/menu">Volver menú</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Especialidad</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="v : ${veterinarios}">
+            <td th:text="${v.nombre}"></td>
+            <td th:text="${v.especialidad}"></td>
+            <td th:text="${v.telefono}"></td>
+            <td th:text="${v.correo}"></td>
+            <td>
+                <a class="editar" th:href="@{/veterinarios/editar/{id}(id=${v.idVeterinario})}">Editar</a>
+                <a class="eliminar" th:href="@{/veterinarios/eliminar/{id}(id=${v.idVeterinario})}"
+                   onclick="return confirm('¿Eliminar veterinario?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

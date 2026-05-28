@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mascotas - Guanavet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f7;
+            margin: 0;
+        }
+
+        header {
+            background: #2c7a7b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 95%;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.12);
+        }
+
+        .btn {
+            background: #2c7a7b;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: #225e5f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #e0f2f1;
+            color: #225e5f;
+        }
+
+        .editar {
+            background: #3182ce;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-right: 6px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .historial {
+            background: #805ad5;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-right: 6px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .eliminar {
+            background: #e53e3e;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Gestión de mascotas</p>
+</header>
+
+<div class="container">
+
+    <a class="btn" href="/mascotas/nuevo">Agregar mascota</a>
+    <a class="btn" href="/menu">Volver menú</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Peso (kg)</th>
+            <th>Dueño</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="m : ${mascotas}">
+            <td th:text="${m.idMascota}"></td>
+            <td th:text="${m.nombre}"></td>
+            <td th:text="${m.especie}"></td>
+            <td th:text="${m.raza}"></td>
+            <td th:text="${m.peso + ' kg'}"></td>
+            <td th:text="${m.cliente.nombre}"></td>
+
+            <td>
+                <a class="historial"
+                   th:href="@{/mascotas/historial/{id}(id=${m.idMascota})}">
+                    Historial
+                </a>
+
+                <a class="editar"
+                   th:href="@{/mascotas/editar/{id}(id=${m.idMascota})}">
+                    Editar
+                </a>
+
+                <a class="eliminar"
+                   th:href="@{/mascotas/eliminar/{id}(id=${m.idMascota})}"
+                   onclick="return confirm('¿Desea eliminar esta mascota?')">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

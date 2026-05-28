@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Historial Mascota - Guanavet</title>
+
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f8f7;
+            margin:0;
+        }
+
+        header{
+            background:#2c7a7b;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .container{
+            width:90%;
+            margin:30px auto;
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 4px 10px rgba(0,0,0,.12);
+        }
+
+        h2{
+            color:#2c7a7b;
+            margin-top:25px;
+        }
+
+        .info{
+            background:#e0f2f1;
+            padding:20px;
+            border-radius:10px;
+        }
+
+        table{
+            width:100%;
+            margin-top:15px;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            padding:12px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
+        }
+
+        th{
+            background:#e0f2f1;
+            color:#225e5f;
+        }
+
+        .btn{
+            background:#2c7a7b;
+            color:white;
+            padding:10px 15px;
+            text-decoration:none;
+            border-radius:8px;
+        }
+
+        .vacio{
+            text-align:center;
+            color:gray;
+            margin-top:15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Historial de mascota</p>
+</header>
+
+<div class="container">
+
+    <div class="info">
+
+        <h2 th:text="${mascota.nombre}"></h2>
+
+        <p>
+            <strong>Dueño:</strong>
+            <span th:text="${mascota.cliente.nombre}"></span>
+        </p>
+
+        <p>
+            <strong>Especie:</strong>
+            <span th:text="${mascota.especie}"></span>
+        </p>
+
+        <p>
+            <strong>Raza:</strong>
+            <span th:text="${mascota.raza}"></span>
+        </p>
+
+        <p>
+            <strong>Peso:</strong>
+            <span th:text="${mascota.peso}"></span> kg
+        </p>
+
+    </div>
+
+    <h2>Citas</h2>
+
+    <table th:if="${not #lists.isEmpty(citas)}">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Veterinario</th>
+            <th>Motivo</th>
+            <th>Estado</th>
+        </tr>
+
+        <tr th:each="c : ${citas}">
+            <td th:text="${c.fecha}"></td>
+            <td th:text="${c.hora}"></td>
+            <td th:text="${c.veterinario != null ? c.veterinario.nombre : 'Sin asignar'}"></td>
+            <td th:text="${c.motivo}"></td>
+            <td th:text="${c.estado}"></td>
+        </tr>
+    </table>
+
+    <div class="vacio" th:if="${#lists.isEmpty(citas)}">
+        No hay citas registradas
+    </div>
+
+    <h2>Consultas médicas</h2>
+
+    <table th:if="${not #lists.isEmpty(consultas)}">
+        <tr>
+            <th>Veterinario</th>
+            <th>Diagnóstico</th>
+            <th>Tratamiento</th>
+        </tr>
+
+        <tr th:each="co : ${consultas}">
+            <td th:text="${co.veterinario != null ? co.veterinario.nombre : 'Sin asignar'}"></td>
+            <td th:text="${co.diagnostico}"></td>
+            <td th:text="${co.tratamiento}"></td>
+        </tr>
+    </table>
+
+    <div class="vacio" th:if="${#lists.isEmpty(consultas)}">
+        No hay consultas registradas
+    </div>
+
+    <h2>Vacunas aplicadas</h2>
+
+    <table th:if="${not #lists.isEmpty(vacunasMascota)}">
+        <tr>
+            <th>Vacuna</th>
+            <th>Fecha</th>
+        </tr>
+
+        <tr th:each="v : ${vacunasMascota}">
+            <td th:text="${v.vacuna.nombre}"></td>
+            <td th:text="${v.fecha}"></td>
+        </tr>
+    </table>
+
+    <div class="vacio" th:if="${#lists.isEmpty(vacunasMascota)}">
+        No hay vacunas registradas
+    </div>
+
+    <br><br>
+
+    <a class="btn" href="/mascotas">Volver</a>
+
+</div>
+
+</body>
+</html>
