@@ -2,128 +2,269 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Menú Principal - Guanavet</title>
+    <title>Panel Guanavet</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f8f7;
-            margin: 0;
+        *{box-sizing:border-box;}
+
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:#eef5f4;
+            color:#12383a;
         }
 
-        header {
-            background: #2c7a7b;
-            color: white;
-            padding: 25px;
-            text-align: center;
+        .layout{
+            display:flex;
+            min-height:100vh;
         }
 
-        .usuario {
-            text-align: center;
-            margin-top: 20px;
-            color: #444;
+        .sidebar{
+            width:245px;
+            background:linear-gradient(180deg,#0f3d3e,#09292a);
+            color:white;
+            padding:24px 20px;
+            display:flex;
+            flex-direction:column;
         }
 
-        .menu {
-            width: 85%;
-            margin: 35px auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .logo h1{
+            font-size:28px;
+            margin:0;
         }
 
-        .card {
-            background: white;
-            padding: 30px;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        .logo p{
+            margin:6px 0 25px;
+            font-size:14px;
+            opacity:.85;
         }
 
-        .card a {
-            text-decoration: none;
-            color: #2c7a7b;
-            font-size: 20px;
-            font-weight: bold;
+        .userbox{
+            background:rgba(255,255,255,.12);
+            padding:18px;
+            border-radius:18px;
+            margin-bottom:25px;
         }
 
-        .card:hover {
-            transform: scale(1.03);
+        .userbox p{
+            margin:10px 0;
+            font-size:15px;
         }
 
-        .salir {
-            text-align: center;
-            margin-top: 20px;
+        .logout{
+            margin-top:auto;
+            background:#ef4444;
+            color:white;
+            text-align:center;
+            padding:13px;
+            border-radius:14px;
+            text-decoration:none;
+            font-weight:bold;
         }
 
-        .salir a {
-            color: red;
-            text-decoration: none;
-            font-weight: bold;
+        .main{
+            flex:1;
+            padding:24px;
         }
+
+        .hero{
+            height:230px;
+            border-radius:26px;
+            background:
+                linear-gradient(90deg,rgba(10,60,60,.88),rgba(10,60,60,.40)),
+                url('/img/veterinaria.jpg');
+            background-size:cover;
+            background-position:center;
+            color:white;
+            padding:38px;
+            display:flex;
+            align-items:center;
+            box-shadow:0 12px 28px rgba(0,0,0,.14);
+        }
+
+        .badge{
+            display:inline-block;
+            background:rgba(255,255,255,.18);
+            padding:8px 14px;
+            border-radius:20px;
+            font-size:14px;
+            font-weight:bold;
+            margin-bottom:14px;
+        }
+
+        .hero h2{
+            font-size:38px;
+            margin:0 0 12px;
+        }
+
+        .hero p{
+            font-size:18px;
+            max-width:560px;
+            line-height:1.4;
+        }
+
+        .titulo{
+            font-size:28px;
+            margin:24px 0 16px;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+        }
+
+        .card{
+            background:white;
+            border-radius:20px;
+            padding:22px;
+            min-height:135px;
+            text-decoration:none;
+            color:#0f5558;
+            box-shadow:0 7px 18px rgba(0,0,0,.08);
+            transition:.25s;
+            border-top:4px solid #58d9b5;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 12px 24px rgba(0,0,0,.14);
+        }
+
+        .icon{
+            width:48px;
+            height:48px;
+            background:#edf8f7;
+            border-radius:15px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:27px;
+            margin-bottom:13px;
+        }
+
+        .card h3{
+            margin:0;
+            font-size:21px;
+        }
+
+        .card p{
+            margin-top:6px;
+            color:#6b7777;
+            font-size:14px;
+        }
+
+        @media(max-width:1200px){
+            .grid{grid-template-columns:repeat(3,1fr);}
+        }
+
+        @media(max-width:900px){
+            .layout{flex-direction:column;}
+            .sidebar{width:100%;}
+            .grid{grid-template-columns:repeat(2,1fr);}
+        }
+
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>Sistema Veterinario Guanavet</h1>
-    <p>Menú principal</p>
-</header>
+<div class="layout">
 
-<div class="usuario">
-    <p>
-        Usuario:
-        <strong th:text="${session.usuario.nombre}"></strong>
-        |
-        Rol:
-        <strong th:text="${session.rol}"></strong>
-    </p>
-</div>
+    <aside class="sidebar">
 
-<div class="menu">
+        <div class="logo">
+            <h1>Guanavet</h1>
+            <p>Sistema de gestión veterinaria</p>
+        </div>
 
-    <!-- ADMIN: puede ver todo -->
-    <div class="card" th:if="${session.rol == 'ADMIN'}">
-        <a href="/usuarios">Usuarios</a>
-    </div>
+        <div class="userbox">
+            <p>Usuario:<br><strong th:text="${session.usuario.nombre}"></strong></p>
+            <p>Rol:<br><strong th:text="${session.rol}"></strong></p>
+        </div>
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
-        <a href="/clientes">Clientes</a>
-    </div>
+        <a class="logout" href="/logout">Cerrar sesión</a>
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA' or session.rol == 'VETERINARIO'}">
-        <a href="/mascotas">Mascotas</a>
-    </div>
+    </aside>
 
-    <div class="card" th:if="${session.rol == 'ADMIN'}">
-        <a href="/veterinarios">Veterinarios</a>
-    </div>
+    <main class="main">
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
-        <a href="/citas">Citas</a>
-    </div>
+        <section class="hero">
+            <div>
+                <div class="badge">Panel principal</div>
+                <h2>Bienvenido a Guanavet</h2>
+                <p>Administra clientes, mascotas, citas, consultas, vacunas y expedientes desde un solo lugar.</p>
+            </div>
+        </section>
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'VETERINARIO'}">
-        <a href="/consultas">Consultas médicas</a>
-    </div>
+        <h2 class="titulo">Módulos del sistema</h2>
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'VETERINARIO'}">
-        <a href="/vacunas">Vacunas</a>
-    </div>
+        <section class="grid">
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
-        <a href="/productos">Inventario</a>
-    </div>
+            <a class="card" href="/usuarios" th:if="${session.rol=='ADMIN'}">
+                <div class="icon">👤</div>
+                <h3>Usuarios</h3>
+                <p>Administra accesos</p>
+            </a>
 
-    <div class="card" th:if="${session.rol == 'ADMIN' or session.rol == 'RECEPCIONISTA'}">
-        <a href="/facturas">Facturas</a>
-    </div>
+            <a class="card" href="/clientes">
+                <div class="icon">🧑</div>
+                <h3>Clientes</h3>
+                <p>Gestión de dueños</p>
+            </a>
 
-</div>
+            <a class="card" href="/mascotas">
+                <div class="icon">🐾</div>
+                <h3>Mascotas</h3>
+                <p>Historial y expedientes</p>
+            </a>
 
-<div class="salir">
-    <a href="/logout">Cerrar sesión</a>
+            <a class="card" href="/veterinarios">
+                <div class="icon">🩺</div>
+                <h3>Veterinarios</h3>
+                <p>Personal médico</p>
+            </a>
+
+            <a class="card" href="/citas">
+                <div class="icon">📅</div>
+                <h3>Citas</h3>
+                <p>Agenda médica</p>
+            </a>
+
+            <a class="card" href="/consultas">
+                <div class="icon">📋</div>
+                <h3>Consultas</h3>
+                <p>Diagnósticos</p>
+            </a>
+
+            <a class="card" href="/vacunas">
+                <div class="icon">💉</div>
+                <h3>Vacunas</h3>
+                <p>Catálogo vacunas</p>
+            </a>
+
+            <a class="card" href="/vacunasmascota">
+                <div class="icon">💊</div>
+                <h3>Aplicadas</h3>
+                <p>Control mascota</p>
+            </a>
+
+            <a class="card" href="/productos">
+                <div class="icon">📦</div>
+                <h3>Inventario</h3>
+                <p>Productos</p>
+            </a>
+
+            <a class="card" href="/facturas">
+                <div class="icon">💰</div>
+                <h3>Facturas</h3>
+                <p>Ventas</p>
+            </a>
+
+        </section>
+
+    </main>
+
 </div>
 
 </body>

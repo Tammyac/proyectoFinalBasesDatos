@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Citas - Guanavet</title>
+
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f8f7;
+            margin:0;
+        }
+
+        header{
+            background:#2c7a7b;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .container{
+            width:95%;
+            margin:30px auto;
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 4px 10px rgba(0,0,0,.12);
+        }
+
+        .btn{
+            background:#2c7a7b;
+            color:white;
+            padding:10px;
+            text-decoration:none;
+            border-radius:8px;
+            margin-right:10px;
+            display:inline-block;
+            margin-bottom:10px;
+        }
+
+        .btn:hover{
+            background:#225e5f;
+        }
+
+        .filtros{
+            margin-top:20px;
+            margin-bottom:10px;
+        }
+
+        .filtro{
+            background:#e0f2f1;
+            color:#225e5f;
+            padding:8px 12px;
+            border-radius:8px;
+            text-decoration:none;
+            margin-right:6px;
+            display:inline-block;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        .filtro:hover{
+            background:#b2dfdb;
+        }
+
+        table{
+            width:100%;
+            margin-top:20px;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            padding:12px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
+        }
+
+        th{
+            background:#e0f2f1;
+            color:#225e5f;
+        }
+
+        .editar{
+            background:#3182ce;
+            color:white;
+            padding:8px 12px;
+            border-radius:6px;
+            text-decoration:none;
+            margin-right:5px;
+        }
+
+        .eliminar{
+            background:#e53e3e;
+            color:white;
+            padding:8px 12px;
+            border-radius:6px;
+            text-decoration:none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Gestión de citas</p>
+</header>
+
+<div class="container">
+
+    <a class="btn" href="/citas/nuevo">Nueva cita</a>
+    <a class="btn" href="/menu">Volver menú</a>
+
+    <div class="filtros">
+        <a class="filtro" href="/citas">Todas</a>
+        <a class="filtro" href="/citas?estado=Pendiente">Pendientes</a>
+        <a class="filtro" href="/citas?estado=Confirmada">Confirmadas</a>
+        <a class="filtro" href="/citas?estado=En proceso">En proceso</a>
+        <a class="filtro" href="/citas?estado=Atendida">Atendidas</a>
+        <a class="filtro" href="/citas?estado=Cancelada">Canceladas</a>
+        <a class="filtro" href="/citas?estado=No asistió">No asistió</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Mascota</th>
+            <th>Cliente</th>
+            <th>Veterinario</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Motivo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="c : ${citas}">
+            <td th:text="${c.mascota.nombre}"></td>
+            <td th:text="${c.cliente.nombre}"></td>
+            <td th:text="${c.veterinario != null ? c.veterinario.nombre : 'Sin asignar'}"></td>
+            <td th:text="${c.fecha}"></td>
+            <td th:text="${c.hora}"></td>
+            <td th:text="${c.motivo}"></td>
+            <td th:text="${c.estado}"></td>
+
+            <td>
+                <a class="editar"
+                   th:href="@{/citas/editar/{id}(id=${c.idCita})}">
+                    Editar
+                </a>
+
+                <a class="eliminar"
+                   th:href="@{/citas/eliminar/{id}(id=${c.idCita})}"
+                   onclick="return confirm('¿Eliminar cita?')">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

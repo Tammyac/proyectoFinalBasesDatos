@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta - Guanavet</title>
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f8f7;
+            margin:0;
+        }
+
+        header{
+            background:#2c7a7b;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .container{
+            width:500px;
+            margin:40px auto;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 4px 10px rgba(0,0,0,.12);
+        }
+
+        h2{
+            text-align:center;
+            color:#2c7a7b;
+        }
+
+        label{
+            font-weight:bold;
+            display:block;
+            margin-top:12px;
+        }
+
+        input,select,textarea{
+
+            width:100%;
+            padding:12px;
+            margin:8px 0;
+            border:1px solid #ccc;
+            border-radius:8px;
+            box-sizing:border-box;
+
+        }
+
+        textarea{
+            resize:none;
+            height:100px;
+        }
+
+        .botones{
+
+            display:flex;
+            gap:10px;
+            margin-top:20px;
+
+        }
+
+        button{
+
+            flex:1;
+            padding:12px;
+            background:#2c7a7b;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+
+        }
+
+        button:hover{
+            background:#225e5f;
+        }
+
+        .volver{
+
+            flex:1;
+            background:#777;
+            color:white;
+            text-align:center;
+            padding:12px;
+            border-radius:8px;
+            text-decoration:none;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Sistema Veterinario Guanavet</h1>
+
+</header>
+
+<div class="container">
+
+    <h2>Formulario Consulta Médica</h2>
+
+    <form
+            th:action="@{/consultas/guardar}"
+            th:object="${consulta}"
+            method="post">
+
+        <input
+                type="hidden"
+                th:field="*{idConsulta}">
+
+
+        <label>Mascota</label>
+
+        <select th:field="*{mascota}" required>
+
+            <option value="">
+                Seleccione una mascota
+            </option>
+
+            <option
+                    th:each="m:${mascotas}"
+                    th:value="${m.idMascota}"
+                    th:text="${m.nombre}">
+            </option>
+
+        </select>
+
+
+        <label>Veterinario</label>
+
+        <select th:field="*{veterinario}" required>
+
+            <option value="">
+                Seleccione un veterinario
+            </option>
+
+            <option
+                    th:each="v:${veterinarios}"
+                    th:value="${v.idVeterinario}"
+                    th:text="${v.nombre}">
+            </option>
+
+        </select>
+
+
+        <label>Diagnóstico</label>
+
+        <textarea
+                th:field="*{diagnostico}"
+                placeholder="Ej: infección, alergia, revisión general..."
+                required>
+        </textarea>
+
+
+        <label>Tratamiento</label>
+
+        <textarea
+                th:field="*{tratamiento}"
+                placeholder="Ej: antibióticos, vacunas, reposo..."
+                required>
+        </textarea>
+
+
+        <div class="botones">
+
+            <button type="submit">
+                Guardar
+            </button>
+
+            <a class="volver"
+               href="/consultas">
+
+                Volver
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
