@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios - Guanavet</title>
+
+    <style>
+        *{box-sizing:border-box;}
+
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:#eef5f4;
+            color:#12383a;
+        }
+
+        .layout{
+            display:flex;
+            min-height:100vh;
+        }
+
+        .sidebar{
+            width:245px;
+            background:linear-gradient(180deg,#0f3d3e,#09292a);
+            color:white;
+            padding:24px 20px;
+        }
+
+        .logo h1{
+            font-size:28px;
+            margin:0;
+        }
+
+        .logo p{
+            margin:6px 0 25px;
+            font-size:14px;
+            opacity:.85;
+        }
+
+        .menu-btn{
+            display:block;
+            background:rgba(255,255,255,.12);
+            color:white;
+            padding:13px;
+            border-radius:14px;
+            text-decoration:none;
+            font-weight:bold;
+            text-align:center;
+            margin-top:20px;
+        }
+
+        .main{
+            flex:1;
+            padding:24px;
+        }
+
+        .hero{
+            height:210px;
+            border-radius:26px;
+            background:linear-gradient(90deg,#0f3d3e,#2c7a7b);
+            color:white;
+            padding:38px;
+            display:flex;
+            align-items:center;
+            box-shadow:0 12px 28px rgba(0,0,0,.14);
+        }
+
+        .hero h1{
+            font-size:38px;
+            margin:0 0 12px;
+        }
+
+        .hero p{
+            font-size:18px;
+            margin:0;
+        }
+
+        .panel{
+            background:white;
+            margin-top:24px;
+            padding:24px;
+            border-radius:22px;
+            box-shadow:0 8px 22px rgba(0,0,0,.10);
+        }
+
+        .top{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:18px;
+        }
+
+        h2{
+            margin:0;
+            color:#0f6465;
+            font-size:26px;
+        }
+
+        .btn{
+            background:#2c7a7b;
+            color:white;
+            padding:11px 16px;
+            border-radius:12px;
+            text-decoration:none;
+            font-weight:bold;
+            font-size:14px;
+        }
+
+        .tabla-box{
+            overflow:hidden;
+            border-radius:18px;
+            border:1px solid #e2eeee;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th{
+            background:#dff3f1;
+            color:#164f50;
+            padding:14px;
+            text-align:left;
+        }
+
+        td{
+            padding:14px;
+            border-bottom:1px solid #edf2f2;
+        }
+
+        tr:hover{
+            background:#f7fcfb;
+        }
+
+        .editar{
+            background:#2563eb;
+            color:white;
+            padding:8px 12px;
+            border-radius:10px;
+            text-decoration:none;
+            margin-right:6px;
+        }
+
+        .eliminar{
+            background:#ef4444;
+            color:white;
+            padding:8px 12px;
+            border-radius:10px;
+            text-decoration:none;
+        }
+
+        .rol{
+            background:#e0f2f1;
+            color:#0f6465;
+            padding:6px 10px;
+            border-radius:10px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>Guanavet</h1>
+            <p>Administración de usuarios</p>
+        </div>
+
+        <a class="menu-btn" href="/menu">Volver al menú</a>
+    </aside>
+
+    <main class="main">
+
+        <section class="hero">
+            <div>
+                <h1>Usuarios del sistema</h1>
+                <p>Administra accesos, roles y cuentas registradas.</p>
+            </div>
+        </section>
+
+        <div class="panel">
+
+            <div class="top">
+                <h2>Lista de usuarios</h2>
+                <a class="btn" href="/usuarios/nuevo">Agregar usuario</a>
+            </div>
+
+            <div class="tabla-box">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="u : ${usuarios}">
+                        <td th:text="${u.idUsuario}"></td>
+                        <td th:text="${u.nombre}"></td>
+                        <td th:text="${u.correo}"></td>
+                        <td>
+                            <span class="rol" th:text="${u.rol}"></span>
+                        </td>
+
+                        <td>
+                            <a class="editar"
+                               th:href="@{/usuarios/editar/{id}(id=${u.idUsuario})}">
+                                Editar
+                            </a>
+
+                            <a class="eliminar"
+                               th:href="@{/usuarios/eliminar/{id}(id=${u.idUsuario})}"
+                               onclick="return confirm('¿Desea eliminar este usuario?')">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

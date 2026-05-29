@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Producto - Guanavet</title>
+
+    <style>
+        body{font-family:Arial,sans-serif;background:#f4f8f7;margin:0;}
+        header{background:#2c7a7b;color:white;padding:35px;text-align:center;}
+        .container{width:500px;margin:40px auto;background:white;padding:30px;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,.12);}
+        h2{text-align:center;color:#2c7a7b;}
+        label{font-weight:bold;display:block;margin-top:12px;}
+        input{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box;}
+        .botones{display:flex;gap:10px;margin-top:20px;}
+        button{flex:1;padding:12px;background:#2c7a7b;color:white;border:none;border-radius:8px;cursor:pointer;}
+        .volver{flex:1;background:#777;color:white;text-align:center;padding:12px;border-radius:8px;text-decoration:none;}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+</header>
+
+<div class="container">
+
+    <h2>Formulario de Producto</h2>
+
+    <form th:action="@{/productos/guardar}" th:object="${producto}" method="post">
+
+        <input type="hidden" th:field="*{idProducto}">
+
+        <label>Nombre del producto</label>
+        <input type="text" th:field="*{nombre}" placeholder="Ej: Vacuna Rabia" required>
+
+        <label>Categoría</label>
+        <input type="text" th:field="*{categoria}" placeholder="Ej: Vacuna, medicamento, alimento" required>
+
+        <label>Cantidad en stock</label>
+        <input type="number" th:field="*{stock}" placeholder="Ej: 30" required>
+
+        <label>Precio</label>
+        <input type="number" step="0.01" th:field="*{precio}" placeholder="Ej: 15000" required>
+
+        <div class="botones">
+            <button type="submit">Guardar</button>
+            <a class="volver" href="/productos">Volver</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

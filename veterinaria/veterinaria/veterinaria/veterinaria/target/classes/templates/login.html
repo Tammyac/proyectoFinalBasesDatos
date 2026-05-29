@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Login - Guanavet</title>
+
+    <style>
+
+        *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        }
+
+        body{
+
+        font-family:Arial,sans-serif;
+
+        background:
+        linear-gradient(
+        rgba(10,60,60,.72),
+        rgba(10,60,60,.72)
+        ),
+        url("/img/veterinaria.jpg");
+
+        background-size:cover;
+
+        background-position:center;
+
+        height:100vh;
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        overflow:hidden;
+
+        }
+
+
+        /* huellas decorativas */
+
+        body::before{
+
+        content:"🐾";
+
+        position:absolute;
+
+        font-size:220px;
+
+        left:-40px;
+
+        bottom:-40px;
+
+        opacity:.08;
+
+        transform:rotate(-20deg);
+
+        }
+
+        body::after{
+
+        content:"🐾";
+
+        position:absolute;
+
+        font-size:180px;
+
+        top:-40px;
+
+        right:-30px;
+
+        opacity:.08;
+
+        transform:rotate(20deg);
+
+        }
+
+
+        .login-box{
+
+        width:430px;
+
+        padding:45px;
+
+        border-radius:30px;
+
+        background:
+        rgba(255,255,255,.12);
+
+        backdrop-filter:blur(18px);
+
+        border:1px solid
+        rgba(255,255,255,.20);
+
+        box-shadow:
+        0 20px 40px rgba(0,0,0,.30);
+
+        text-align:center;
+
+        color:white;
+
+        }
+
+
+        .logo{
+
+        width:90px;
+
+        height:90px;
+
+        border-radius:50%;
+
+        background:
+        linear-gradient(
+        135deg,
+        #2c7a7b,
+        #3caea3
+        );
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        font-size:42px;
+
+        margin:auto;
+
+        margin-bottom:18px;
+
+        box-shadow:
+        0 10px 20px rgba(0,0,0,.2);
+
+        }
+
+        h2{
+
+        font-size:42px;
+
+        margin-bottom:8px;
+
+        }
+
+        .subtitulo{
+
+        opacity:.85;
+
+        margin-bottom:30px;
+
+        font-size:17px;
+
+        line-height:1.5;
+
+        }
+
+
+        .inputBox{
+
+        position:relative;
+
+        margin-bottom:16px;
+
+        }
+
+        input{
+
+        width:100%;
+
+        padding:16px;
+
+        border-radius:15px;
+
+        border:none;
+
+        outline:none;
+
+        background:
+        rgba(255,255,255,.15);
+
+        color:white;
+
+        font-size:15px;
+
+        border:
+        1px solid rgba(255,255,255,.15);
+
+        }
+
+        input::placeholder{
+
+        color:#e6e6e6;
+
+        }
+
+        input:focus{
+
+        border:
+        1px solid #58d9b5;
+
+        background:
+        rgba(255,255,255,.22);
+
+        }
+
+
+        button{
+
+        width:100%;
+
+        padding:16px;
+
+        border:none;
+
+        border-radius:15px;
+
+        margin-top:12px;
+
+        font-size:17px;
+
+        font-weight:bold;
+
+        background:
+        linear-gradient(
+        90deg,
+        #2c7a7b,
+        #4ac9aa
+        );
+
+        color:white;
+
+        cursor:pointer;
+
+        transition:.3s;
+
+        }
+
+        button:hover{
+
+        transform:translateY(-3px);
+
+        box-shadow:
+        0 10px 20px rgba(0,0,0,.2);
+
+        }
+
+
+        .crear{
+
+        display:block;
+
+        margin-top:25px;
+
+        text-decoration:none;
+
+        color:#9df5d5;
+
+        font-weight:bold;
+
+        font-size:16px;
+
+        }
+
+        .crear:hover{
+
+        color:white;
+
+        }
+
+
+        .error{
+
+        margin-top:20px;
+
+        padding:12px;
+
+        border-radius:12px;
+
+        background:
+        rgba(255,0,0,.25);
+
+        color:white;
+
+        }
+
+        .exito{
+
+        margin-top:20px;
+
+        padding:12px;
+
+        border-radius:12px;
+
+        background:
+        rgba(0,180,0,.25);
+
+        color:white;
+
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="logo">
+
+        🐾
+
+    </div>
+
+
+    <h2>
+
+        Guanavet
+
+    </h2>
+
+    <p class="subtitulo">
+
+        Sistema Inteligente de Gestión Veterinaria
+
+    </p>
+
+
+    <form action="/login"
+          method="post">
+
+
+        <div class="inputBox">
+
+            <input
+                    type="email"
+                    name="correo"
+                    placeholder="Correo electrónico"
+                    required>
+
+        </div>
+
+
+        <div class="inputBox">
+
+            <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required>
+
+        </div>
+
+
+        <button type="submit">
+
+            Ingresar
+
+        </button>
+
+    </form>
+
+
+    <p class="error"
+       th:if="${param.error}">
+
+        Correo o contraseña incorrectos
+
+    </p>
+
+
+    <p class="exito"
+       th:if="${param.registrado}">
+
+        Usuario creado correctamente
+
+    </p>
+
+
+    <a class="crear"
+       href="/registro">
+
+        Crear nuevo usuario
+
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuario - Guanavet</title>
+
+    <style>
+        *{box-sizing:border-box;}
+
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:#eef5f4;
+            color:#12383a;
+        }
+
+        header{
+            background:linear-gradient(90deg,#0f3d3e,#2c7a7b);
+            color:white;
+            padding:35px;
+            text-align:center;
+        }
+
+        .container{
+            width:500px;
+            margin:40px auto;
+            background:white;
+            padding:30px;
+            border-radius:22px;
+            box-shadow:0 8px 22px rgba(0,0,0,.12);
+        }
+
+        h2{
+            text-align:center;
+            color:#0f6465;
+            margin-top:0;
+        }
+
+        label{
+            display:block;
+            font-weight:bold;
+            margin-top:12px;
+        }
+
+        input,select{
+            width:100%;
+            padding:13px;
+            margin-top:8px;
+            border:1px solid #ccc;
+            border-radius:12px;
+        }
+
+        .botones{
+            display:flex;
+            gap:10px;
+            margin-top:24px;
+        }
+
+        button{
+            flex:1;
+            background:#2c7a7b;
+            color:white;
+            border:none;
+            padding:13px;
+            border-radius:12px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        .volver{
+            flex:1;
+            background:#475569;
+            color:white;
+            text-align:center;
+            padding:13px;
+            border-radius:12px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Formulario de usuario</p>
+</header>
+
+<div class="container">
+
+    <h2>Datos del usuario</h2>
+
+    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+
+        <input type="hidden" th:field="*{idUsuario}">
+
+        <label>Nombre</label>
+        <input type="text" th:field="*{nombre}" required>
+
+        <label>Correo electrónico</label>
+        <input type="email" th:field="*{correo}" required>
+
+        <label>Contraseña</label>
+        <input type="text" th:field="*{password}" required>
+
+        <label>Rol</label>
+        <select th:field="*{rol}" required>
+            <option value="ADMIN">ADMIN</option>
+            <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+            <option value="VETERINARIO">VETERINARIO</option>
+        </select>
+
+        <div class="botones">
+            <button type="submit">Guardar</button>
+            <a class="volver" href="/usuarios">Volver</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

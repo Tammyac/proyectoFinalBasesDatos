@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes - Guanavet</title>
+
+    <style>
+        *{box-sizing:border-box}
+
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:linear-gradient(135deg,#e9f7f5,#f8fbfa);
+            color:#173839;
+        }
+
+        .header{
+            background:linear-gradient(135deg,#0f3d3e,#2c7a7b);
+            color:white;
+            padding:35px 70px 90px;
+        }
+
+        .header h1{
+            margin:0;
+            font-size:42px;
+        }
+
+        .header p{
+            margin-top:10px;
+            font-size:17px;
+            opacity:.9;
+        }
+
+        .container{
+            width:92%;
+            margin:-60px auto 40px;
+        }
+
+        .stats{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+            margin-bottom:22px;
+        }
+
+        .stat-card{
+            background:white;
+            padding:22px;
+            border-radius:20px;
+            box-shadow:0 10px 25px rgba(0,0,0,.10);
+            border-left:6px solid #2c7a7b;
+        }
+
+        .stat-card h3{
+            margin:0;
+            color:#0f6465;
+            font-size:18px;
+        }
+
+        .stat-card p{
+            margin:8px 0 0;
+            color:#6b7777;
+        }
+
+        .panel{
+            background:white;
+            padding:28px;
+            border-radius:24px;
+            box-shadow:0 14px 35px rgba(0,0,0,.12);
+        }
+
+        .top{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:22px;
+        }
+
+        h2{
+            margin:0;
+            color:#0f6465;
+            font-size:28px;
+        }
+
+        .acciones-top{
+            display:flex;
+            gap:10px;
+        }
+
+        .btn{
+            background:#2c7a7b;
+            color:white;
+            padding:12px 18px;
+            border-radius:12px;
+            text-decoration:none;
+            font-weight:bold;
+            font-size:14px;
+        }
+
+        .btn:hover{
+            background:#225e5f;
+        }
+
+        .btn-menu{
+            background:#475569;
+        }
+
+        .tabla-box{
+            overflow:hidden;
+            border-radius:18px;
+            border:1px solid #e2eeee;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th{
+            background:#dff3f1;
+            color:#164f50;
+            padding:15px;
+            text-align:left;
+        }
+
+        td{
+            padding:15px;
+            border-bottom:1px solid #edf2f2;
+        }
+
+        tr:hover{
+            background:#f7fcfb;
+        }
+
+        .editar{
+            background:#2563eb;
+            color:white;
+            padding:8px 12px;
+            border-radius:10px;
+            text-decoration:none;
+            margin-right:6px;
+            display:inline-block;
+        }
+
+        .eliminar{
+            background:#ef4444;
+            color:white;
+            padding:8px 12px;
+            border-radius:10px;
+            text-decoration:none;
+            display:inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Clientes Guanavet</h1>
+    <p>Administra los dueños registrados y su información de contacto.</p>
+</div>
+
+<div class="container">
+
+    <div class="stats">
+        <div class="stat-card">
+            <h3>Registro de clientes</h3>
+            <p>Control de dueños de mascotas</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Información de contacto</h3>
+            <p>Teléfono correo y dirección</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Gestión rápida</h3>
+            <p>Editar o eliminar registros</p>
+        </div>
+    </div>
+
+    <div class="panel">
+
+        <div class="top">
+            <h2>Lista de clientes</h2>
+
+            <div class="acciones-top">
+                <a class="btn" href="/clientes/nuevo">Agregar cliente</a>
+                <a class="btn btn-menu" href="/menu">Volver al menú</a>
+            </div>
+        </div>
+
+        <div class="tabla-box">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.idCliente}"></td>
+                    <td th:text="${cliente.nombre}"></td>
+                    <td th:text="${cliente.telefono}"></td>
+                    <td th:text="${cliente.correo}"></td>
+                    <td th:text="${cliente.direccion}"></td>
+
+                    <td>
+                        <a class="editar"
+                           th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}">
+                            Editar
+                        </a>
+
+                        <a class="eliminar"
+                           th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}"
+                           onclick="return confirm('¿Desea eliminar este cliente?')">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

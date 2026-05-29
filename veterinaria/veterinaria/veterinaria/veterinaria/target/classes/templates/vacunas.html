@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacunas - Guanavet</title>
+
+    <style>
+        body{font-family:Arial,sans-serif;background:#f4f8f7;margin:0;}
+        header{background:#2c7a7b;color:white;padding:20px;text-align:center;}
+        .container{width:90%;margin:30px auto;background:white;padding:25px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.12);}
+        .btn{background:#2c7a7b;color:white;padding:10px 15px;text-decoration:none;border-radius:8px;margin-right:10px;}
+        table{width:100%;border-collapse:collapse;margin-top:20px;}
+        th,td{padding:12px;text-align:center;border-bottom:1px solid #ddd;}
+        th{background:#e0f2f1;color:#225e5f;}
+        .editar{background:#3182ce;color:white;padding:8px 12px;border-radius:6px;text-decoration:none;margin-right:6px;}
+        .eliminar{background:#e53e3e;color:white;padding:8px 12px;border-radius:6px;text-decoration:none;}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema Veterinario Guanavet</h1>
+    <p>Gestión de vacunas</p>
+</header>
+
+<div class="container">
+
+    <a class="btn" href="/vacunas/nuevo">Agregar vacuna</a>
+    <a class="btn" href="/menu">Volver menú</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="v : ${vacunas}">
+            <td th:text="${v.nombre}"></td>
+            <td th:text="${v.descripcion}"></td>
+            <td>
+                <a class="editar" th:href="@{/vacunas/editar/{id}(id=${v.idVacuna})}">Editar</a>
+                <a class="eliminar"
+                   th:href="@{/vacunas/eliminar/{id}(id=${v.idVacuna})}"
+                   onclick="return confirm('¿Eliminar esta vacuna?')">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

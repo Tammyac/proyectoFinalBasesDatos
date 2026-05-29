@@ -255,6 +255,12 @@
                 <p>Productos</p>
             </a>
 
+            <a class="card" href="/servicios" th:if="${session.rol=='ADMIN' or session.rol=='RECEPCIONISTA'}">
+                <div class="icon">🧾</div>
+                <h3>Servicios</h3>
+                <p>Precios de servicios</p>
+            </a>
+
             <a class="card" href="/facturas">
                 <div class="icon">💰</div>
                 <h3>Facturas</h3>
